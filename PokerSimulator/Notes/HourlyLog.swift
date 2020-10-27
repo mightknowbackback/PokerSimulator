@@ -11,7 +11,7 @@ import Foundation
  
  Coding:
  
- 10/27/20 - 1 hr
+ 10/27/20 - 2.5 hr
  
  Design:
  
