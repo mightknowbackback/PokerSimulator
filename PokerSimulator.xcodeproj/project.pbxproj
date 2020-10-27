@@ -15,6 +15,14 @@
 		96B9EE052548AD20005F7624 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96B9EE032548AD20005F7624 /* LaunchScreen.storyboard */; };
 		96B9EE102548AD20005F7624 /* PokerSimulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE0F2548AD20005F7624 /* PokerSimulatorTests.swift */; };
 		96B9EE1B2548AD20005F7624 /* PokerSimulatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE1A2548AD20005F7624 /* PokerSimulatorUITests.swift */; };
+		96B9EE2C2548ADA2005F7624 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE2B2548ADA2005F7624 /* GameModel.swift */; };
+		96B9EE322548ADBE005F7624 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE312548ADBE005F7624 /* Card.swift */; };
+		96B9EE3A2548ADD1005F7624 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE392548ADD1005F7624 /* Deck.swift */; };
+		96B9EE3F2548ADDD005F7624 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE3E2548ADDD005F7624 /* Player.swift */; };
+		96B9EE442548AE19005F7624 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE432548AE19005F7624 /* Hand.swift */; };
+		96B9EE4A2548B8A6005F7624 /* HourlyLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE492548B8A6005F7624 /* HourlyLog.swift */; };
+		96B9EE522548B8B1005F7624 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE512548B8B1005F7624 /* Notes.swift */; };
+		96B9EE572548BB65005F7624 /* ShuffleMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE562548BB65005F7624 /* ShuffleMethod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +57,14 @@
 		96B9EE162548AD20005F7624 /* PokerSimulatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokerSimulatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B9EE1A2548AD20005F7624 /* PokerSimulatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokerSimulatorUITests.swift; sourceTree = "<group>"; };
 		96B9EE1C2548AD20005F7624 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96B9EE2B2548ADA2005F7624 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		96B9EE312548ADBE005F7624 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		96B9EE392548ADD1005F7624 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		96B9EE3E2548ADDD005F7624 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		96B9EE432548AE19005F7624 /* Hand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
+		96B9EE492548B8A6005F7624 /* HourlyLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyLog.swift; sourceTree = "<group>"; };
+		96B9EE512548B8B1005F7624 /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
+		96B9EE562548BB65005F7624 /* ShuffleMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleMethod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +118,8 @@
 				96B9EDF82548AD1D005F7624 /* AppDelegate.swift */,
 				96B9EDFA2548AD1D005F7624 /* SceneDelegate.swift */,
 				96B9EDFC2548AD1D005F7624 /* ContentView.swift */,
+				96B9EE302548ADA8005F7624 /* Model */,
+				96B9EE482548B891005F7624 /* Notes */,
 				96B9EDFE2548AD20005F7624 /* Assets.xcassets */,
 				96B9EE032548AD20005F7624 /* LaunchScreen.storyboard */,
 				96B9EE062548AD20005F7624 /* Info.plist */,
@@ -134,6 +152,28 @@
 				96B9EE1C2548AD20005F7624 /* Info.plist */,
 			);
 			path = PokerSimulatorUITests;
+			sourceTree = "<group>";
+		};
+		96B9EE302548ADA8005F7624 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				96B9EE2B2548ADA2005F7624 /* GameModel.swift */,
+				96B9EE312548ADBE005F7624 /* Card.swift */,
+				96B9EE392548ADD1005F7624 /* Deck.swift */,
+				96B9EE562548BB65005F7624 /* ShuffleMethod.swift */,
+				96B9EE3E2548ADDD005F7624 /* Player.swift */,
+				96B9EE432548AE19005F7624 /* Hand.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		96B9EE482548B891005F7624 /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				96B9EE492548B8A6005F7624 /* HourlyLog.swift */,
+				96B9EE512548B8B1005F7624 /* Notes.swift */,
+			);
+			path = Notes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,7 +306,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96B9EE442548AE19005F7624 /* Hand.swift in Sources */,
+				96B9EE522548B8B1005F7624 /* Notes.swift in Sources */,
+				96B9EE572548BB65005F7624 /* ShuffleMethod.swift in Sources */,
+				96B9EE3A2548ADD1005F7624 /* Deck.swift in Sources */,
 				96B9EDF92548AD1D005F7624 /* AppDelegate.swift in Sources */,
+				96B9EE4A2548B8A6005F7624 /* HourlyLog.swift in Sources */,
+				96B9EE2C2548ADA2005F7624 /* GameModel.swift in Sources */,
+				96B9EE322548ADBE005F7624 /* Card.swift in Sources */,
+				96B9EE3F2548ADDD005F7624 /* Player.swift in Sources */,
 				96B9EDFB2548AD1D005F7624 /* SceneDelegate.swift in Sources */,
 				96B9EDFD2548AD1D005F7624 /* ContentView.swift in Sources */,
 			);

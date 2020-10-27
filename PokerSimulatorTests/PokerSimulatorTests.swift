@@ -9,6 +9,20 @@ import XCTest
 @testable import PokerSimulator
 
 class PokerSimulatorTests: XCTestCase {
+    
+    func shuffleTest() {
+        for _ in 0...10 {
+            let scrambledDeck = Deck(shuffleMethods: [.scramble])
+            XCTAssertEqual(scrambledDeck.cards.count, 52)
+            let riffledDeck = Deck(shuffleMethods: [.riffle])
+            XCTAssertEqual(riffledDeck.cards.count, 52)
+            let machineDeck = Deck(shuffleMethods: [.machine])
+            XCTAssertEqual(machineDeck.cards.count, 52)
+            let randomDeck = Deck(shuffleMethods: [.random])
+            XCTAssertEqual(randomDeck.cards.count, 52)
+        }
+        
+    }
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
