@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96464CC12548CA8000702B55 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96464CC02548CA8000702B55 /* Action.swift */; };
 		96B9EDF92548AD1D005F7624 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EDF82548AD1D005F7624 /* AppDelegate.swift */; };
 		96B9EDFB2548AD1D005F7624 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EDFA2548AD1D005F7624 /* SceneDelegate.swift */; };
 		96B9EDFD2548AD1D005F7624 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EDFC2548AD1D005F7624 /* ContentView.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		96464CC02548CA8000702B55 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		96B9EDF52548AD1D005F7624 /* PokerSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokerSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B9EDF82548AD1D005F7624 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96B9EDFA2548AD1D005F7624 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				96B9EE562548BB65005F7624 /* ShuffleMethod.swift */,
 				96B9EE3E2548ADDD005F7624 /* Player.swift */,
 				96B9EE432548AE19005F7624 /* Hand.swift */,
+				96464CC02548CA8000702B55 /* Action.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96B9EE442548AE19005F7624 /* Hand.swift in Sources */,
+				96464CC12548CA8000702B55 /* Action.swift in Sources */,
 				96B9EE522548B8B1005F7624 /* Notes.swift in Sources */,
 				96B9EE572548BB65005F7624 /* ShuffleMethod.swift in Sources */,
 				96B9EE3A2548ADD1005F7624 /* Deck.swift in Sources */,
