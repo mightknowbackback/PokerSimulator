@@ -152,6 +152,7 @@ enum HandRanking : Int, CaseIterable {
                     matchedRankValues.append(e.offset)
                 }
             }
+            matchedRankValues = matchedRankValues.reversed()
             for val in matchedRankValues {
                 var arr : [Card] = []
                 for c in cards {
@@ -163,7 +164,6 @@ enum HandRanking : Int, CaseIterable {
                     result.append(arr)
                 }
             }
-            
             return result
         }
         let matchedCards = sortForRankMatches()
@@ -206,7 +206,7 @@ enum HandRanking : Int, CaseIterable {
                     if !otherCards.isEmpty {
                         var othersSorted = sort(otherCards)
                         let first = othersSorted.removeFirst()
-                        result.values = [first.rank.rawValue]
+                        result.values.append(first.rank.rawValue)
                         result.unused = othersSorted
                     }
                 }
@@ -263,7 +263,7 @@ enum HandRanking : Int, CaseIterable {
                 result.bool = true
                 result.values = [val]
                 var straight : [Card] = []
-                while cards.count > 5 {
+                while cards.count < 5 {
                     let values = [val, val - 1, val - 2, val - 3, val - 4]
                     for v in values {
                         straight.append(cards.first(where: {$0.rank.rawValue == v})!)
@@ -279,6 +279,7 @@ enum HandRanking : Int, CaseIterable {
             for set in matchedCards {
                 if set.count == 3 {
                     result.bool = true
+                    result.values = [set[0].rank.rawValue]
                     var otherCards = [Card]()
                     for c in cards {
                         if c.rank.rawValue != set[0].rank.rawValue {
@@ -286,23 +287,19 @@ enum HandRanking : Int, CaseIterable {
                         }
                     }
                     var othersSorted = sort(otherCards)
-                    result.values = {
-                        var arr = [Int]()
-                        for c in othersSorted {
-                            arr.append(c.rank.rawValue)
-                        }
-                        return arr
-                    }()
                     while othersSorted.count > 2 {
                         result.unused.append(othersSorted.popLast()!)
+                    }
+                    for c in othersSorted {
+                        result.values.append(c.rank.rawValue)
                     }
                 }
             }
         case .twoPair:
             if matchedCards.count > 1 {
                 result.bool = true
-                for i in 0..<matchedCards.count {
-                    result.values.append(matchedCards[i][0].rank.rawValue)
+                for set in matchedCards {
+                    result.values.append(set[0].rank.rawValue)
                 }
                 if result.values.count == 3 {
                     result.values.removeLast()

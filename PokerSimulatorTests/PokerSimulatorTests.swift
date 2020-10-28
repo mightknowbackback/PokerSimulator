@@ -26,16 +26,17 @@ class PokerSimulatorTests: XCTestCase {
     func testHandRanking() {
         
         // MARK: Detecting Hands
-//        let straightFlush = Hand([
-//                Card(suit: .hearts, rank: .seven),
-//                Card(suit: .hearts, rank: .eight),
-//                Card(suit: .hearts, rank: .four),
-//                Card(suit: .hearts, rank: .five),
-//                Card(suit: .hearts, rank: .six),
-//                Card(suit: .clubs, rank: .two),
-//                Card(suit: .diamonds, rank: .king),
-//        ])
-//        XCTAssertEqual(straightFlush.ranking, .straightFlush)
+        let straightFlush = Hand([
+                Card(suit: .hearts, rank: .seven),
+                Card(suit: .hearts, rank: .eight),
+                Card(suit: .hearts, rank: .four),
+                Card(suit: .hearts, rank: .five),
+                Card(suit: .hearts, rank: .six),
+                Card(suit: .clubs, rank: .two),
+                Card(suit: .diamonds, rank: .king),
+        ])
+        XCTAssertEqual(straightFlush.ranking, .straightFlush)
+        XCTAssertEqual(straightFlush.rankingValues, [8])
         
         let fourOfAKind = Hand([
                 Card(suit: .clubs, rank: .six),
@@ -47,9 +48,9 @@ class PokerSimulatorTests: XCTestCase {
                 Card(suit: .clubs, rank: .jack),
         ])
         XCTAssertEqual(fourOfAKind.ranking, .fourOfAKind)
-        //XCTAssertEqual(fourOfAKind.rankingValues, [11, 6])
+        XCTAssertEqual(fourOfAKind.rankingValues, [11, 6])
         
-        let fullHouse = Hand([
+        let fullHouseA = Hand([
             Card(suit: .clubs, rank: .six),
             Card(suit: .diamonds, rank: .two),
             Card(suit: .spades, rank: .three),
@@ -58,8 +59,31 @@ class PokerSimulatorTests: XCTestCase {
             Card(suit: .spades, rank: .jack),
             Card(suit: .clubs, rank: .jack),
         ])
-        XCTAssertEqual(fullHouse.ranking, .fullHouse)
-        XCTAssertEqual(fullHouse.rankingValues, [11, 3])
+        XCTAssertEqual(fullHouseA.ranking, .fullHouse)
+        XCTAssertEqual(fullHouseA.rankingValues, [11, 3])
+        let fullHouseB = Hand([
+            Card(suit: .clubs, rank: .six),
+            Card(suit: .diamonds, rank: .two),
+            Card(suit: .spades, rank: .jack),
+            Card(suit: .hearts, rank: .jack),
+            Card(suit: .diamonds, rank: .three),
+            Card(suit: .spades, rank: .three),
+            Card(suit: .clubs, rank: .three),
+        ])
+        XCTAssertEqual(fullHouseB.ranking, .fullHouse)
+        XCTAssertEqual(fullHouseB.rankingValues, [3, 11])
+        let fullHouseC = Hand([
+            Card(suit: .clubs, rank: .six),
+            Card(suit: .diamonds, rank: .two),
+            Card(suit: .spades, rank: .ten),
+            Card(suit: .hearts, rank: .ten),
+            Card(suit: .diamonds, rank: .three),
+            Card(suit: .spades, rank: .three),
+            Card(suit: .clubs, rank: .three),
+        ])
+        XCTAssertEqual(fullHouseC.ranking, .fullHouse)
+        XCTAssertEqual(fullHouseC.rankingValues, [3, 10])
+        XCTAssertTrue(fullHouseB > fullHouseC)
         
         let flush = Hand([
                 Card(suit: .hearts, rank: .ace),
@@ -73,16 +97,17 @@ class PokerSimulatorTests: XCTestCase {
         XCTAssertEqual(flush.ranking, .flush)
         XCTAssertEqual(flush.rankingValues, [14])
         
-//        let straight = Hand([
-//                Card(suit: .clubs, rank: .six),
-//                Card(suit: .diamonds, rank: .two),
-//                Card(suit: .spades, rank: .three),
-//                Card(suit: .clubs, rank: .five),
-//                Card(suit: .diamonds, rank: .four),
-//                Card(suit: .spades, rank: .jack),
-//                Card(suit: .clubs, rank: .jack),
-//        ])
-//        XCTAssertEqual(straight.ranking, .straight)
+        let straight = Hand([
+                Card(suit: .clubs, rank: .six),
+                Card(suit: .diamonds, rank: .two),
+                Card(suit: .spades, rank: .three),
+                Card(suit: .clubs, rank: .five),
+                Card(suit: .diamonds, rank: .four),
+                Card(suit: .spades, rank: .jack),
+                Card(suit: .clubs, rank: .jack),
+        ])
+        XCTAssertEqual(straight.ranking, .straight)
+        XCTAssertEqual(straight.rankingValues, [6])
         
         let threeOfAKind = Hand([
                 Card(suit: .clubs, rank: .six),
@@ -134,8 +159,9 @@ class PokerSimulatorTests: XCTestCase {
         
         
         // MARK: Ranking Hands
-        XCTAssertTrue(fourOfAKind > fullHouse)
-        XCTAssertTrue(fullHouse > flush)
+        XCTAssertTrue(straightFlush > fourOfAKind)
+        XCTAssertTrue(fourOfAKind > fullHouseA)
+        XCTAssertTrue(fullHouseA > flush)
         XCTAssertTrue(flush > threeOfAKind)
         XCTAssertTrue(threeOfAKind > twoPair)
         XCTAssertTrue(twoPair > highCard)
