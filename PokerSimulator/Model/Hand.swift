@@ -256,7 +256,9 @@ enum HandRanking : Int, CaseIterable {
                 while sortedCards.count > 5 {
                     result.unused.append(sortedCards.removeLast())
                 }
-                result.values = [fCards[0].rank.rawValue]
+                for c in sortedCards {
+                    result.values.append(c.rank.rawValue)
+                }
             }
         case .straight:
             if let val = checkForStraight(cards) {
@@ -382,7 +384,7 @@ struct Hand : Equatable, Comparable {
             return false
         } else { // Same HandRanking needs to be sorted by kickers.
             switch lhs.ranking {
-            case .straightFlush, .flush:
+            case .straightFlush:
                 return rankingValueTest(0)
             case .fourOfAKind:
                 if lhs.rankingValues == rhs.rankingValues {
@@ -400,6 +402,13 @@ struct Hand : Equatable, Comparable {
                 } else {
                     return rankingValueTest(0)
                 }
+            case .flush:
+                for i in 0...4 {
+                    if !rankingValueEquality(i) {
+                        return rankingValueTest(i)
+                    }
+                }
+                return false
             case .straight:
                 return rankingValueTest(0)
             case .highCard, .onePair, .twoPair, .threeOfAKind:

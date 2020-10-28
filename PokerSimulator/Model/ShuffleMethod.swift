@@ -13,6 +13,7 @@ enum ShuffleMethod {
         
         var cards = cards
         
+        
         func randomIntBelow(_ i: Int) -> Int {
             Int(arc4random_uniform(UInt32(i)))
         }
@@ -25,21 +26,26 @@ enum ShuffleMethod {
         }
         
         func remove(_ num: Int, fromBottom cards: inout [Card]) -> [Card] {
-            var bottom : [Card] = [cards.removeLast()]
-            if num > 0 {
-                for _ in 0..<num - 1 {
-                    bottom.insert(cards.removeLast(), at: 0)
+            if !cards.isEmpty {
+                var bottom : [Card] = [cards.removeLast()]
+                if num > 0 {
+                    for _ in 0..<num - 1 {
+                        bottom.insert(cards.removeLast(), at: 0)
+                    }
                 }
+                return bottom
+            } else {
+                return []
             }
-            
-            return bottom
         }
         
         func cut() {
+            
             var randomPoint : Int {
                 let random = Int(arc4random_uniform(UInt32(cards.count - 6)))
                 return random + 3
             }
+//            print("Cutting deck at index \(randomPoint)")
             let top = remove(randomPoint, fromTop: &cards)
             cards = cards + top
         }
@@ -57,26 +63,39 @@ enum ShuffleMethod {
                 cards = middle + top + cards
             }
         case .riffle:
-            let randomCount = Int(arc4random_uniform(UInt32(5))) + 3
+            let randomCount = Int(arc4random_uniform(UInt32(5))) + 3 // number of shuffles
+//            print("Number of shuffles: \(randomCount)")
             for _ in 0...randomCount {
+//                print("Shuffle \(i)")
                 let middleIndex = cards.count/2
-                let middleVariance = Int(arc4random_uniform(UInt32(5)))
+                let middleVariance = randomIntBelow(6)
                 let positive = Bool.random()
-                let splitIndex = positive ? middleIndex + middleIndex : middleIndex - middleVariance
+                let splitIndex = positive ? middleIndex + middleVariance : middleIndex - middleVariance
+//                print("Splitting deck at card \(splitIndex)")
+//                print("CARDS: \(cards.debugDescription)")
                 var left = remove(splitIndex, fromTop: &cards)
+//                print("LEFT: " + left.debugDescription)
                 var right = cards
+//                print("RIGHT: " + right.debugDescription)
                 var newOrder : [Card] = []
                 newOrder = remove(randomIntBelow(5), fromBottom: &right)
-                while !left.isEmpty && !right.isEmpty {
+//                print("NEW DECK: " + newOrder.debugDescription)
+                while !left.isEmpty || !right.isEmpty {
+                    
                     if !left.isEmpty {
-                        let slice = left.count < 5 ? remove(randomIntBelow(left.count + 1), fromBottom: &left) : remove(randomIntBelow(5), fromBottom: &left)
+                        let slice = left.count < 5 ? remove(randomIntBelow(left.count), fromBottom: &left) : remove(randomIntBelow(5), fromBottom: &left)
                         newOrder.insert(contentsOf: slice, at: 0)
                     }
+                    
                     if !right.isEmpty {
-                        let slice = right.count < 5 ? remove(randomIntBelow(right.count + 1), fromBottom: &right) : remove(randomIntBelow(5), fromBottom: &right)
+                        let slice = right.count < 5 ? remove(randomIntBelow(right.count), fromBottom: &right) : remove(randomIntBelow(5), fromBottom: &right)
                         newOrder.insert(contentsOf: slice, at: 0)
                     }
+//                    print("Left count: \(left.count)")
+//                    print("Right count: \(right.count)")
+//                    print("NEW DECK: \(newOrder.debugDescription)")
                 }
+//                print("Left while loop...")
                 cards = newOrder
             }
         case .machine:
