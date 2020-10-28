@@ -29,8 +29,8 @@ enum HandRanking : Int, CaseIterable {
         // Sort by descending value
         func sort(_ cards: [Card]) -> [Card] {
             var result : [Card] = []
-            for c in cards {
-                for val in 2...14 {
+            for val in 2...14 {
+                for c in cards {
                     if c.rank.rawValue == val {
                         result.insert(c, at: 0)
                     }

@@ -10,18 +10,18 @@ import XCTest
 
 class PokerSimulatorTests: XCTestCase {
     
-//    func testShuffle() {
-//        for _ in 0...10 {
-//            let scrambledDeck = Deck(shuffleMethods: [.scramble])
-//            XCTAssertEqual(scrambledDeck.cards.count, 52)
+    func testShuffle() {
+        for _ in 0...10 {
+            let scrambledDeck = Deck(shuffleMethods: [.scramble])
+            XCTAssertEqual(scrambledDeck.cards.count, 52)
 //            let riffledDeck = Deck(shuffleMethods: [.riffle])
 //            XCTAssertEqual(riffledDeck.cards.count, 52)
 //            let machineDeck = Deck(shuffleMethods: [.machine])
 //            XCTAssertEqual(machineDeck.cards.count, 52)
-//            let randomDeck = Deck(shuffleMethods: [.random])
-//            XCTAssertEqual(randomDeck.cards.count, 52)
-//        }
-//    }
+            let randomDeck = Deck(shuffleMethods: [.random])
+            XCTAssertEqual(randomDeck.cards.count, 52)
+        }
+    }
     
     func testHandRanking() {
         
@@ -47,7 +47,7 @@ class PokerSimulatorTests: XCTestCase {
                 Card(suit: .clubs, rank: .jack),
         ])
         XCTAssertEqual(fourOfAKind.ranking, .fourOfAKind)
-        XCTAssertEqual(fourOfAKind.rankingValues, [11, 6])
+        //XCTAssertEqual(fourOfAKind.rankingValues, [11, 6])
         
         let fullHouse = Hand([
             Card(suit: .clubs, rank: .six),
@@ -59,6 +59,7 @@ class PokerSimulatorTests: XCTestCase {
             Card(suit: .clubs, rank: .jack),
         ])
         XCTAssertEqual(fullHouse.ranking, .fullHouse)
+        XCTAssertEqual(fullHouse.rankingValues, [11, 3])
         
         let flush = Hand([
                 Card(suit: .hearts, rank: .ace),
@@ -70,6 +71,7 @@ class PokerSimulatorTests: XCTestCase {
                 Card(suit: .diamonds, rank: .king),
         ])
         XCTAssertEqual(flush.ranking, .flush)
+        XCTAssertEqual(flush.rankingValues, [14])
         
 //        let straight = Hand([
 //                Card(suit: .clubs, rank: .six),
@@ -92,6 +94,7 @@ class PokerSimulatorTests: XCTestCase {
                 Card(suit: .clubs, rank: .jack),
         ])
         XCTAssertEqual(threeOfAKind.ranking, .threeOfAKind)
+        XCTAssertEqual(threeOfAKind.rankingValues, [11, 6, 5])
         
         let twoPair = Hand([
                 Card(suit: .clubs, rank: .six),
@@ -103,6 +106,7 @@ class PokerSimulatorTests: XCTestCase {
                 Card(suit: .clubs, rank: .jack),
         ])
         XCTAssertEqual(twoPair.ranking, .twoPair)
+        XCTAssertEqual(twoPair.rankingValues, [11, 5, 6])
         
         let onePair = Hand([
                 Card(suit: .clubs, rank: .six),
@@ -114,6 +118,7 @@ class PokerSimulatorTests: XCTestCase {
                 Card(suit: .clubs, rank: .jack),
         ])
         XCTAssertEqual(onePair.ranking, .onePair)
+        XCTAssertEqual(onePair.rankingValues, [11, 14, 6, 5])
         
         let highCard = Hand([
                 Card(suit: .clubs, rank: .six),
@@ -125,6 +130,7 @@ class PokerSimulatorTests: XCTestCase {
                 Card(suit: .clubs, rank: .king),
         ])
         XCTAssertEqual(highCard.ranking, .highCard)
+        XCTAssertEqual(highCard.rankingValues, [14, 13, 11, 6, 5])
         
         
         // MARK: Ranking Hands
