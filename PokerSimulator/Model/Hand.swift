@@ -128,8 +128,49 @@ enum HandRanking : Int, CaseIterable {
                 return nil
             }
         }()
+        // MARK: Pair checking
+        func sortForRankMatches() -> [[Card]] {
+            var result : [[Card]] = []
+            let rankCounts : [Int] = {
+                var result : [Int] = [0, 0]
+                var i = 2
+                while i <= Rank.ace.rawValue {
+                    result.append(0)
+                    for c in cards {
+                        if c.rank.rawValue == i {
+                            let j = result.count - 1
+                            result[j] = result[j] + 1
+                        }
+                    }
+                    i += 1
+                }
+                return result
+            }()
+            var matchedRankValues : [Int] = []
+            for e in rankCounts.enumerated() {
+                if e.element > 1 {
+                    matchedRankValues.append(e.offset)
+                }
+            }
+            for val in matchedRankValues {
+                var arr : [Card] = []
+                for c in cards {
+                    if c.rank.rawValue == val {
+                        arr.append(c)
+                    }
+                }
+                if !arr.isEmpty {
+                    result.append(arr)
+                }
+            }
+            
+            return result
+        }
+        let matchedCards = sortForRankMatches()
+        
         
         // MARK: Case by case testing
+        // Cases assume all higher HandRankings tests failed 
         switch self {
         case .straightFlush:
             if let fCards = sortedFlushCards {
@@ -145,16 +186,69 @@ enum HandRanking : Int, CaseIterable {
                             result.unused.append(full.popLast()!)
                         }
                     }
-                } else {
-                    break
                 }
-            } else {
-                break
             }
         case .fourOfAKind:
-            print("Complete Four-of-a-Kind!")
+            for set in matchedCards {
+                if set.count == 4 {
+                    result.bool = true
+                    result.values.append(set[0].rank.rawValue)
+                    let otherCards : [Card] = {
+                        var result : [Card] = []
+                        let val = set.first!.rank.rawValue
+                        for c in cards {
+                            if c.rank.rawValue != val {
+                                result.append(c)
+                            }
+                        }
+                        return result
+                    }()
+                    if !otherCards.isEmpty {
+                        var othersSorted = sort(otherCards)
+                        let first = othersSorted.removeFirst()
+                        result.values = [first.rank.rawValue]
+                        result.unused = othersSorted
+                    }
+                }
+            }
         case .fullHouse:
-            print("Complete Full House!")
+            if matchedCards.count >= 2 {
+                for set in matchedCards {
+                    if set.count == 3 {
+                        result.bool = true
+                        result.values.append(set[0].rank.rawValue)
+                        break
+                    }
+                }
+                if result.bool {
+                    result.values.append(matchedCards.first(where: {$0[0].rank.rawValue != result.values[0]})![0].rank.rawValue)
+                    var allMatched : [Card] = {// All cards that have a rank match (can be two sets of 3...)
+                        var arr = [Card]()
+                        for set in matchedCards {
+                            for c in set {
+                                arr.append(c)
+                            }
+                        }
+                        return arr
+                    }()
+                    if allMatched.count > 5 {// For two sets of three or three sets
+                        if matchedCards.count > 2 {// For three sets
+                            for i in 0..<allMatched.count {
+                                if !result.values.contains(allMatched[i].rank.rawValue) {
+                                    result.unused.append(allMatched.remove(at: i))
+                                }
+                            }
+                        } else {// For two sets of three
+                            for c in cards {
+                                if !allMatched.contains(c) {
+                                    result.unused.append(c)
+                                }
+                                result.unused.append(allMatched.popLast()!)
+                            }
+                        }
+                    }
+                }
+            }
         case .flush:
             if let fCards = sortedFlushCards {
                 result.bool = true
@@ -163,8 +257,6 @@ enum HandRanking : Int, CaseIterable {
                     result.unused.append(sortedCards.removeLast())
                 }
                 result.values = [fCards[0].rank.rawValue]
-            } else {
-                break
             }
         case .straight:
             if let val = checkForStraight(cards) {
@@ -182,24 +274,71 @@ enum HandRanking : Int, CaseIterable {
                         }
                     }
                 }
-            } else {
-                break
             }
         case .threeOfAKind:
-            print("Complete Three-of-a-Kind!")
+            for set in matchedCards {
+                if set.count == 3 {
+                    result.bool = true
+                    var otherCards = [Card]()
+                    for c in cards {
+                        if c.rank.rawValue != set[0].rank.rawValue {
+                            otherCards.append(c)
+                        }
+                    }
+                    var othersSorted = sort(otherCards)
+                    result.values = {
+                        var arr = [Int]()
+                        for c in othersSorted {
+                            arr.append(c.rank.rawValue)
+                        }
+                        return arr
+                    }()
+                    while othersSorted.count > 2 {
+                        result.unused.append(othersSorted.popLast()!)
+                    }
+                }
+            }
         case .twoPair:
-            print("Complete Two Pair!")
+            if matchedCards.count > 1 {
+                result.bool = true
+                for i in 0..<matchedCards.count {
+                    result.values.append(matchedCards[i][0].rank.rawValue)
+                }
+                if result.values.count == 3 {
+                    result.values.removeLast()
+                }
+                for c in sort(cards) {
+                    let val = c.rank.rawValue
+                    if !result.values.contains(val) && result.values.count < 3 {
+                        result.values.append(val)
+                    }
+                }
+            }
         case .onePair:
-            print("Complete One Pair!")
+            if !matchedCards.isEmpty {
+                result.bool = true
+                result.values.append(matchedCards[0][0].rank.rawValue)
+            }
+            var sorted = sort(cards)
+            sorted.removeAll(where: {$0.rank.rawValue == result.values[0]})
+            while sorted.count > 3 {
+                result.unused.append(sorted.removeLast())
+            }
+            for c in sorted {
+                result.values.append(c.rank.rawValue)
+            }
         case .highCard:
             if cards.count > 0 {
                 result.bool = true
-                let sorted = sort(cards)
+                var sorted = sort(cards)
                 var values : [Int] = []
                 for i in 0...4 {
                     values.append(sorted[i].rank.rawValue)
                 }
                 result.values = values
+                while sorted.count > 5 {
+                    result.unused.append(sorted.removeLast())
+                }
             }
         default:
             break
@@ -251,14 +390,14 @@ struct Hand : Equatable, Comparable {
                 if lhs.rankingValues == rhs.rankingValues {
                     return false
                 } else if rankingValueEquality(0) {
-                    return rankingValueTest(4)
+                    return rankingValueTest(1)
                 } else {
                     return rankingValueTest(0)
                 }
             case .fullHouse:
                 if lhs.rankingValues == rhs.rankingValues {
                     return false
-                } else if lhs.rankingValues[0] == rhs.rankingValues[0] {
+                } else if rankingValueEquality(0) {
                     return rankingValueTest(1)
                 } else {
                     return rankingValueTest(0)
