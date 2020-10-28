@@ -318,15 +318,16 @@ enum HandRanking : Int, CaseIterable {
             if !matchedCards.isEmpty {
                 result.bool = true
                 result.values.append(matchedCards[0][0].rank.rawValue)
+                var sorted = sort(cards)
+                sorted.removeAll(where: {$0.rank.rawValue == result.values[0]})
+                while sorted.count > 3 {
+                    result.unused.append(sorted.removeLast())
+                }
+                for c in sorted {
+                    result.values.append(c.rank.rawValue)
+                }
             }
-            var sorted = sort(cards)
-            sorted.removeAll(where: {$0.rank.rawValue == result.values[0]})
-            while sorted.count > 3 {
-                result.unused.append(sorted.removeLast())
-            }
-            for c in sorted {
-                result.values.append(c.rank.rawValue)
-            }
+            
         case .highCard:
             if cards.count > 0 {
                 result.bool = true
