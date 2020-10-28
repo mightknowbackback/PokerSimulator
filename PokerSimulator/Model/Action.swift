@@ -8,8 +8,8 @@
 import Foundation
 
 enum Action : String, CaseIterable {
-    case check
-    case fold
-    case call
-    case raise
+    case check = "Check"
+    case fold = "Fold"
+    case call = "Call"
+    case raise = "Raise"
 }

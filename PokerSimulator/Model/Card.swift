@@ -10,13 +10,14 @@ import Foundation
 enum Suit : String, CaseIterable {
     case spades = "Spades", clubs = "Clubs", diamonds = "Diamonds", hearts = "Hearts"
 }
-enum Rank : String, CaseIterable {
+enum Rank : Int, CaseIterable {
     
-    case ace = "Ace", two = "Two", three = "Three", four = "Four", five = "Five", six = "Six", seven = "Seven", eight = "Eight", nine = "Nine", ten = "Ten", jack = "Jack", queen = "Queen", king = "King"
+    case ace = 14, two = 2, three = 3, four = 4, five = 5, six = 6, seven = 7, eight = 8, nine = 9, ten = 10, jack = 11, queen = 12, king = 13
     
+
 }
 
-struct Card {
+struct Card : Equatable {
     let suit : Suit
     let rank : Rank
 }

@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct GameModel {
+    var players : [Player]
+}
