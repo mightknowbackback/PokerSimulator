@@ -151,6 +151,10 @@ enum HandRanking : Int, CaseIterable {
             } else {
                 break
             }
+        case .fourOfAKind:
+            print("Complete Four-of-a-Kind!")
+        case .fullHouse:
+            print("Complete Full House!")
         case .flush:
             if let fCards = sortedFlushCards {
                 result.bool = true
@@ -181,6 +185,12 @@ enum HandRanking : Int, CaseIterable {
             } else {
                 break
             }
+        case .threeOfAKind:
+            print("Complete Three-of-a-Kind!")
+        case .twoPair:
+            print("Complete Two Pair!")
+        case .onePair:
+            print("Complete One Pair!")
         case .highCard:
             if cards.count > 0 {
                 result.bool = true
@@ -222,30 +232,47 @@ struct Hand : Equatable, Comparable {
         }
     }
     static func < (lhs: Hand, rhs: Hand) -> Bool {
+        func rankingValueEquality(_ i: Int) -> Bool {
+            lhs.rankingValues[i] == rhs.rankingValues[i]
+        }
+        func rankingValueTest(_ i: Int) -> Bool {
+            lhs.rankingValues[i] < rhs.rankingValues[i]
+        }
         
         if lhs.ranking != rhs.ranking { // Different HandRanking
             return lhs.ranking.rawValue < rhs.ranking.rawValue
+        } else if lhs == rhs { // Same exact hand value
+            return false
         } else { // Same HandRanking needs to be sorted by kickers.
             switch lhs.ranking {
             case .straightFlush, .flush:
-                return lhs.rankingValues[0] < rhs.rankingValues[0]
+                return rankingValueTest(0)
             case .fourOfAKind:
                 if lhs.rankingValues == rhs.rankingValues {
                     return false
-                } else if lhs.rankingValues[0] == rhs.rankingValues[0] {
-                    return lhs.rankingValues[4] < rhs.rankingValues[4]
+                } else if rankingValueEquality(0) {
+                    return rankingValueTest(4)
                 } else {
-                    return lhs.rankingValues[0] < rhs.rankingValues[0]
+                    return rankingValueTest(0)
                 }
             case .fullHouse:
                 if lhs.rankingValues == rhs.rankingValues {
                     return false
                 } else if lhs.rankingValues[0] == rhs.rankingValues[0] {
-                    return lhs.rankingValues[1] < rhs.rankingValues[1]
+                    return rankingValueTest(1)
                 } else {
-                    return lhs.rankingValues[0] < rhs.rankingValues[0]
+                    return rankingValueTest(0)
                 }
-            default:
+            case .straight:
+                return rankingValueTest(0)
+            case .highCard, .onePair, .twoPair, .threeOfAKind:
+                for i in 0..<lhs.rankingValues.count {
+                    if !rankingValueEquality(i) {
+                        return rankingValueTest(i)
+                    }
+                }
+                return false
+            case .none:
                 return false
             }
         }
