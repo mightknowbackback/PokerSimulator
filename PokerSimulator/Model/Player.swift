@@ -7,15 +7,16 @@
 
 import Foundation
 
-struct Player {
-    
-    var isDealer : Bool = false
+class Player {
     
     let isComputerPlayer : Bool
     var cards : [Card] = []
-    var hand : Hand
+    var hand : Hand = Hand([])
     
     func decide(forTurn model: GameModel) -> (Action, Int?) {
         return (.call, nil)
+    }
+    init(isComputerPlayer: Bool) {
+        self.isComputerPlayer = isComputerPlayer
     }
 }
