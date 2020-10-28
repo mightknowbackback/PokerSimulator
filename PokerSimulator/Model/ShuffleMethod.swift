@@ -26,9 +26,12 @@ enum ShuffleMethod {
         
         func remove(_ num: Int, fromBottom cards: inout [Card]) -> [Card] {
             var bottom : [Card] = [cards.removeLast()]
-            for _ in 0..<num - 1 {
-                bottom.insert(cards.removeLast(), at: 0)
+            if num > 0 {
+                for _ in 0..<num - 1 {
+                    bottom.insert(cards.removeLast(), at: 0)
+                }
             }
+            
             return bottom
         }
         
