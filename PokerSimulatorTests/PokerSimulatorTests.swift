@@ -10,7 +10,7 @@ import XCTest
 
 class PokerSimulatorTests: XCTestCase {
     
-    func shuffleTest() {
+    func testShuffle() {
         for _ in 0...10 {
             let scrambledDeck = Deck(shuffleMethods: [.scramble])
             XCTAssertEqual(scrambledDeck.cards.count, 52)
@@ -21,7 +21,32 @@ class PokerSimulatorTests: XCTestCase {
             let randomDeck = Deck(shuffleMethods: [.random])
             XCTAssertEqual(randomDeck.cards.count, 52)
         }
-        
+    }
+    
+    func testHandRanking() {
+        let flush = Hand(
+            [
+                Card(suit: .hearts, rank: .ace),
+                Card(suit: .hearts, rank: .eight),
+                Card(suit: .hearts, rank: .four),
+                Card(suit: .hearts, rank: .five),
+                Card(suit: .hearts, rank: .jack),
+                Card(suit: .clubs, rank: .two),
+                Card(suit: .diamonds, rank: .king),
+        ])
+        XCTAssertTrue(flush.ranking == .flush)
+        let straight = Hand(
+            [
+                Card(suit: .clubs, rank: .ace),
+                Card(suit: .diamonds, rank: .two),
+                Card(suit: .spades, rank: .three),
+                Card(suit: .clubs, rank: .five),
+                Card(suit: .diamonds, rank: .four),
+                Card(suit: .spades, rank: .jack),
+                Card(suit: .clubs, rank: .ten),
+        ])
+        XCTAssertTrue(straight.ranking == .straight)
+        XCTAssertTrue(flush > straight)
     }
 
     override func setUpWithError() throws {
