@@ -25,8 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            let deck = Deck(shuffleMethods: [.riffle])
 //            print(deck.debugDescription)
 //        }
-        
-        let contentView = ContentView()
+        let gameModel = GameModel(shuffleMethods: .machine, players: 9)
+        let viewModel : ViewModel = ViewModel(gameModel: gameModel)
+        let contentView = ContentView().environmentObject(viewModel)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

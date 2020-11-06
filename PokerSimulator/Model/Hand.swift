@@ -24,7 +24,9 @@ enum HandRanking : Int, CaseIterable {
     private func test(_ cards: [Card]) -> (bool: Bool, values: [Int], unused: [Card]) {
         // Placeholder for final
         var result : (bool: Bool, values: [Int], unused: [Card]) = (false, [], [])
-        
+        if cards.count == 0 {
+            return result
+        }
         // MARK: Straight checking
         // Sort by descending value
         func sort(_ cards: [Card]) -> [Card] {
@@ -40,6 +42,7 @@ enum HandRanking : Int, CaseIterable {
         }
         // Check for straight and provide high card
         func checkForStraight(_ cards: [Card]) -> Int? {
+            
             let sorted = sort(cards)
             var values : [Int] = []
             for c in sorted {

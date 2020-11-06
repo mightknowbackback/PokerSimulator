@@ -24,6 +24,8 @@
 		96B9EE4A2548B8A6005F7624 /* HourlyLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE492548B8A6005F7624 /* HourlyLog.swift */; };
 		96B9EE522548B8B1005F7624 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE512548B8B1005F7624 /* Notes.swift */; };
 		96B9EE572548BB65005F7624 /* ShuffleMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EE562548BB65005F7624 /* ShuffleMethod.swift */; };
+		96E8F43B2554DE9A00499DE8 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8F43A2554DE9A00499DE8 /* ViewModel.swift */; };
+		96E8F4442554DFA300499DE8 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8F4432554DFA300499DE8 /* TestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		96B9EE492548B8A6005F7624 /* HourlyLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyLog.swift; sourceTree = "<group>"; };
 		96B9EE512548B8B1005F7624 /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		96B9EE562548BB65005F7624 /* ShuffleMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleMethod.swift; sourceTree = "<group>"; };
+		96E8F43A2554DE9A00499DE8 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		96E8F4432554DFA300499DE8 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +123,9 @@
 			children = (
 				96B9EDF82548AD1D005F7624 /* AppDelegate.swift */,
 				96B9EDFA2548AD1D005F7624 /* SceneDelegate.swift */,
-				96B9EDFC2548AD1D005F7624 /* ContentView.swift */,
 				96B9EE302548ADA8005F7624 /* Model */,
+				96E8F4392554DE7600499DE8 /* ViewModel */,
+				96E8F4422554DF8A00499DE8 /* View */,
 				96B9EE482548B891005F7624 /* Notes */,
 				96B9EDFE2548AD20005F7624 /* Assets.xcassets */,
 				96B9EE032548AD20005F7624 /* LaunchScreen.storyboard */,
@@ -177,6 +182,23 @@
 				96B9EE512548B8B1005F7624 /* Notes.swift */,
 			);
 			path = Notes;
+			sourceTree = "<group>";
+		};
+		96E8F4392554DE7600499DE8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				96E8F43A2554DE9A00499DE8 /* ViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		96E8F4422554DF8A00499DE8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				96B9EDFC2548AD1D005F7624 /* ContentView.swift */,
+				96E8F4432554DFA300499DE8 /* TestView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,12 +331,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96E8F4442554DFA300499DE8 /* TestView.swift in Sources */,
 				96B9EE442548AE19005F7624 /* Hand.swift in Sources */,
 				96464CC12548CA8000702B55 /* Action.swift in Sources */,
 				96B9EE522548B8B1005F7624 /* Notes.swift in Sources */,
 				96B9EE572548BB65005F7624 /* ShuffleMethod.swift in Sources */,
 				96B9EE3A2548ADD1005F7624 /* Deck.swift in Sources */,
 				96B9EDF92548AD1D005F7624 /* AppDelegate.swift in Sources */,
+				96E8F43B2554DE9A00499DE8 /* ViewModel.swift in Sources */,
 				96B9EE4A2548B8A6005F7624 /* HourlyLog.swift in Sources */,
 				96B9EE2C2548ADA2005F7624 /* GameModel.swift in Sources */,
 				96B9EE322548ADBE005F7624 /* Card.swift in Sources */,

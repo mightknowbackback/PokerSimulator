@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum Round {
-    case preFlop
+enum Round : String {
+    case preFlop = "Pre-Flop"
     case flop
     case turn
     case river
@@ -55,4 +55,15 @@ struct GameModel {
     var deck : Deck
     var round : Round = .preFlop
     var players : [Player]
+    
+    init(shuffleMethods: ShuffleMethod..., players: Int) {
+        let deck = Deck(shuffleMethods: shuffleMethods)
+        var computerPlayers : [Player] = []
+        for _ in 0..<players {
+            let player = Player(isComputerPlayer: true)
+            computerPlayers.append(player)
+        }
+        self.deck = deck
+        self.players = computerPlayers
+    }
 }
