@@ -36,7 +36,7 @@ struct TestView: View {
 }
 
 struct TestView_Previews: PreviewProvider {
-    static let viewModel : ViewModel = ViewModel(gameModel: GameModel(shuffleMethods: .machine, players: 9))
+    static let viewModel : ViewModel = ViewModel(gameModel: GameModel(shuffleMethods: .machine, players: 9, startingChips: 500))
     static var previews: some View {
         TestView().environmentObject(Self.viewModel)
     }

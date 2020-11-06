@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            let deck = Deck(shuffleMethods: [.riffle])
 //            print(deck.debugDescription)
 //        }
-        let gameModel = GameModel(shuffleMethods: .machine, players: 9)
+        let gameModel = GameModel(shuffleMethods: .machine, players: 9, startingChips: 500)
         let viewModel : ViewModel = ViewModel(gameModel: gameModel)
         let contentView = ContentView().environmentObject(viewModel)
 

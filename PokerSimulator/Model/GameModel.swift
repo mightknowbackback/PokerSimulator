@@ -16,24 +16,28 @@ enum Round : String {
 
 struct GameModel {
     
-    private mutating func distribute(_ i: Int, toPlayer: Bool) {
+    private mutating func distribute(numberOfCards i: Int, asHoleCards: Bool) {
         for _ in 1...i {
-            if toPlayer {
+            if asHoleCards {
                 for p in self.players {
-                    let card = self.deck.cards.removeFirst()
-                    p.cards.append(card)
+                    if p.hasChips {
+                        let card = self.deck.cards.removeFirst()
+                        p.cards.append(card)
+                    }
                 }
             } else {
                 let card = self.deck.cards.removeFirst()
                 self.board.append(card)
                 for p in self.players {
-                    p.cards.append(card)
+                    if p.hasChips {
+                        p.cards.append(card)
+                    }
                 }
             }
         }
     }
-    mutating func advanceRound() {
-        
+    
+    private mutating func advanceRound() {
         switch self.round {
         case .preFlop:
             self.round = .flop
@@ -44,8 +48,8 @@ struct GameModel {
         case .river:
             self.round = .preFlop
         }
-        
     }
+    
     mutating func deal() {
         if self.round == .river {
             self.resetDeck()
@@ -55,13 +59,13 @@ struct GameModel {
         self.discardPile.append(self.deck.cards.removeFirst())
         switch self.round {
         case .preFlop:
-            distribute(2, toPlayer: true)
+            distribute(numberOfCards: 2, asHoleCards: true)
         case .flop:
-            distribute(3, toPlayer: false)
+            distribute(numberOfCards: 3, asHoleCards: false)
         case .turn:
-            distribute(1, toPlayer: false)
+            distribute(numberOfCards: 1, asHoleCards: false)
         case .river:
-            distribute(1, toPlayer: false)
+            distribute(numberOfCards: 1, asHoleCards: false)
         }
     }
     
@@ -108,16 +112,16 @@ struct GameModel {
     var round : Round = .preFlop
     var players : [Player]
     
-    init(shuffleMethods: ShuffleMethod..., players: Int) {
+    init(shuffleMethods: ShuffleMethod..., players: Int, startingChips: Int) {
         let deck = Deck(shuffleMethods: shuffleMethods)
         var computerPlayers : [Player] = []
         for i in 0..<players {
-            let player = Player(isComputerPlayer: true, playerNumber: i + 1)
+            let player = Player(isComputerPlayer: true, playerNumber: i + 1, chips: startingChips)
             computerPlayers.append(player)
         }
         self.shuffleMethods = shuffleMethods
         self.deck = deck
         self.players = computerPlayers
-        self.distribute(2, toPlayer: true)
+        self.distribute(numberOfCards: 2, asHoleCards: true)
     }
 }

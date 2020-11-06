@@ -17,6 +17,8 @@ class Player : Equatable {
     let isComputerPlayer : Bool
     var playerNumber : Int
     var cards : [Card] = []
+    var chips : Int
+    var hasChips : Bool {self.chips > 0}
     var hand : Hand {
         return Hand(self.cards)
     }
@@ -24,8 +26,9 @@ class Player : Equatable {
     func decide(forTurn model: GameModel) -> (Action, Int?) {
         return (.call, nil)
     }
-    init(isComputerPlayer: Bool, playerNumber: Int) {
+    init(isComputerPlayer: Bool, playerNumber: Int, chips: Int) {
         self.isComputerPlayer = isComputerPlayer
         self.playerNumber = playerNumber
+        self.chips = chips
     }
 }
