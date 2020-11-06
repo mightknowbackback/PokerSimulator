@@ -335,7 +335,8 @@ enum HandRanking : Int, CaseIterable {
                 result.bool = true
                 var sorted = sort(cards)
                 var values : [Int] = []
-                for i in 0...4 {
+                let num = sorted.count < 5 ? sorted.count - 1 : 4
+                for i in 0...num {
                     values.append(sorted[i].rank.rawValue)
                 }
                 result.values = values
@@ -424,6 +425,65 @@ struct Hand : Equatable, Comparable {
             case .none:
                 return false
             }
+        }
+    }
+    
+    static func findKickerFor(lhs: Hand, rhs: Hand) -> Int? {
+        var result : Int? = nil
+        if lhs.ranking != rhs.ranking {
+            var b = true
+            var i = 1
+            while b {
+                let l = lhs.rankingValues[i]
+                let r = rhs.rankingValues[i]
+                if  l != r {
+                    b = false
+                    result = max(l,r)
+                }
+                i += 1
+            }
+        }
+        return result
+    }
+    
+    var description : String {
+        let values = self.rankingValues
+        let val = values[0]
+        switch self.ranking {
+        case .straightFlush:
+            let valString = Rank.getFor(val).fullName
+            return "\(valString)-high Straight Flush"
+        case .fourOfAKind:
+            let valString = Rank.getFor(val).fullName + "s"
+            return "Four of a Kind - \(valString)"
+        case .fullHouse:
+            let valString1 = Rank.getFor(val).fullName + "s"
+            let valString2 = Rank.getFor(values[1]).fullName + "s"
+            return "Full House - \(valString1) over \(valString2)"
+        case .flush:
+            return "Flush"
+        case .straight:
+            return "Straight"
+        case .threeOfAKind:
+            return "Three of a Kind"
+        case .twoPair:
+            return "Two Pair - \(Rank.getFor(val).fullName)s and \(Rank.getFor(values[1]))s"
+        case .onePair:
+            return "One Pair - \(Rank.getFor(val).fullName)s"
+        case .highCard:
+            return "High Card - \(Rank.getFor(val).fullName)"
+        case .none:
+            return ""
+        }
+    }
+    var kickerDescription : String {
+        switch self.ranking {
+        case .fullHouse, .threeOfAKind, .onePair, .highCard, .none:
+            return ""
+        case .fourOfAKind, .twoPair:
+            return Rank.getFor(self.rankingValues.last!).fullName + " kicker"
+        case .straightFlush, .flush, .straight:
+            return Rank.getFor(self.rankingValues[0]).fullName + " high"
         }
     }
     

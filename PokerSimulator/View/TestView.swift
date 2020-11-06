@@ -17,8 +17,17 @@ struct TestView: View {
     
     var body: some View {
         VStack {
-            Text(self.viewModel.gameModel.round.rawValue.capitalized).padding()
-            
+            Text("ROUND:")
+            Text(self.viewModel.gameModel.round.rawValue.capitalized).padding(.bottom)
+            Text("BOARD:")
+            Text(self.viewModel.boardString).padding(.bottom)
+            ForEach(0..<self.viewModel.gameModel.players.count) {i in
+                HStack {
+                    Text(self.viewModel.testViewPlayerStrings[i].player)
+                    Text(self.viewModel.testViewPlayerStrings[i].cards)
+                }
+            }
+            Text(self.viewModel.stateString).padding()
             Button(action: self.deal) {
                 Text("Deal").padding()
             }

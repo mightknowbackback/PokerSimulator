@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96416AF72554E7EF00838C35 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96416AF62554E7EF00838C35 /* TestViewModel.swift */; };
 		96464CC12548CA8000702B55 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96464CC02548CA8000702B55 /* Action.swift */; };
 		96B9EDF92548AD1D005F7624 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EDF82548AD1D005F7624 /* AppDelegate.swift */; };
 		96B9EDFB2548AD1D005F7624 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9EDFA2548AD1D005F7624 /* SceneDelegate.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		96416AF62554E7EF00838C35 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		96464CC02548CA8000702B55 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		96B9EDF52548AD1D005F7624 /* PokerSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokerSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B9EDF82548AD1D005F7624 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				96E8F43A2554DE9A00499DE8 /* ViewModel.swift */,
+				96416AF62554E7EF00838C35 /* TestViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				96B9EE2C2548ADA2005F7624 /* GameModel.swift in Sources */,
 				96B9EE322548ADBE005F7624 /* Card.swift in Sources */,
 				96B9EE3F2548ADDD005F7624 /* Player.swift in Sources */,
+				96416AF72554E7EF00838C35 /* TestViewModel.swift in Sources */,
 				96B9EDFB2548AD1D005F7624 /* SceneDelegate.swift in Sources */,
 				96B9EDFD2548AD1D005F7624 /* ContentView.swift in Sources */,
 			);

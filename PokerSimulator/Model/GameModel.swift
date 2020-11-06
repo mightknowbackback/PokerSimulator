@@ -16,23 +16,42 @@ enum Round : String {
 
 struct GameModel {
     
-    mutating func deal() {
-        func distribute(_ i: Int, toPlayer: Bool) {
-            for _ in 1...i {
-                if toPlayer {
-                    for p in self.players {
-                        p.hand.allCards.append(self.deck.cards.removeFirst())
-                    }
-                } else {
+    private mutating func distribute(_ i: Int, toPlayer: Bool) {
+        for _ in 1...i {
+            if toPlayer {
+                for p in self.players {
                     let card = self.deck.cards.removeFirst()
-                    self.board.append(card)
-                    for p in self.players {
-                        p.hand.allCards.append(card)
-                    }
+                    p.cards.append(card)
+                }
+            } else {
+                let card = self.deck.cards.removeFirst()
+                self.board.append(card)
+                for p in self.players {
+                    p.cards.append(card)
                 }
             }
         }
-        self.advanceButton()
+    }
+    mutating func advanceRound() {
+        
+        switch self.round {
+        case .preFlop:
+            self.round = .flop
+        case .flop:
+            self.round = .turn
+        case .turn:
+            self.round = .river
+        case .river:
+            self.round = .preFlop
+        }
+        
+    }
+    mutating func deal() {
+        if self.round == .river {
+            self.resetDeck()
+            self.advanceButton()
+        }
+        self.advanceRound()
         self.discardPile.append(self.deck.cards.removeFirst())
         switch self.round {
         case .preFlop:
@@ -45,11 +64,44 @@ struct GameModel {
             distribute(1, toPlayer: false)
         }
     }
+    
+    mutating private func resetDeck() {
+        var cards : [Card] = []
+        for p in players {
+            cards.append(p.cards.removeFirst())
+            cards.append(p.cards.removeFirst())
+            p.cards = []
+        }
+        cards += self.discardPile
+        self.discardPile = []
+        cards += self.board
+        self.board = []
+        cards += self.deck.cards
+        self.deck = Deck(shuffleMethods: self.shuffleMethods, unshuffledCards: cards)
+    }
+    
     mutating func advanceButton() {
         let newDealer = self.players.removeFirst()
         self.players.append(newDealer)
     }
     
+    func currentBest() -> [Player] {
+        var result : [Player] = []
+        for p in self.players {
+            if result.isEmpty {
+                result = [p]
+            } else {
+                if p.hand > result[0].hand {
+                    result = [p]
+                } else if p.hand == result[0].hand {
+                    result.append(p)
+                }
+            }
+        }
+        return result
+    }
+    
+    let shuffleMethods : [ShuffleMethod]
     var discardPile : [Card] = []
     var board : [Card] = []
     var deck : Deck
@@ -59,11 +111,14 @@ struct GameModel {
     init(shuffleMethods: ShuffleMethod..., players: Int) {
         let deck = Deck(shuffleMethods: shuffleMethods)
         var computerPlayers : [Player] = []
-        for _ in 0..<players {
-            let player = Player(isComputerPlayer: true)
+        for i in 0..<players {
+            let player = Player(isComputerPlayer: true, playerNumber: i)
             computerPlayers.append(player)
         }
+        self.shuffleMethods = shuffleMethods
         self.deck = deck
         self.players = computerPlayers
+        self.distribute(2, toPlayer: true)
+        print(self.players[0].cards)
     }
 }
