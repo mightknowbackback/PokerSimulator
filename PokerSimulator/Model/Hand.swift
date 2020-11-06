@@ -430,17 +430,45 @@ struct Hand : Equatable, Comparable {
     
     static func findKickerFor(lhs: Hand, rhs: Hand) -> Int? {
         var result : Int? = nil
-        if lhs.ranking != rhs.ranking {
-            var b = true
-            var i = 1
-            while b {
+        
+        func find() {
+            var compareKickers = true
+            var i = 0
+            // Adjust i to start of possible kicker cards
+            switch lhs.ranking {
+            case .fourOfAKind, .threeOfAKind, .onePair, .highCard, .flush:
+                i = 1
+            case .twoPair:
+                i = 2
+            default:
+                break
+            }
+            while compareKickers {
                 let l = lhs.rankingValues[i]
                 let r = rhs.rankingValues[i]
                 if  l != r {
-                    b = false
+                    compareKickers = false
                     result = max(l,r)
                 }
                 i += 1
+            }
+        }
+        // Check if needs to be decided by kicker
+        if lhs.ranking == rhs.ranking && lhs != rhs {
+            switch lhs.ranking {
+            // Hands that can be decided by kicker
+            case .fourOfAKind, .flush, .threeOfAKind, .onePair, .highCard:
+                // Check if kicker is needed
+                if lhs.rankingValues[0] == rhs.rankingValues[0] {
+                    find()
+                }
+            case .twoPair:
+                // Check if kicker is needed
+                if lhs.rankingValues[0...1] == rhs.rankingValues[0...1] {
+                    find()
+                }
+            default:
+                break
             }
         }
         return result
@@ -449,42 +477,45 @@ struct Hand : Equatable, Comparable {
     var description : String {
         let values = self.rankingValues
         let val = values[0]
+        let valString = Rank.getFor(val).fullName
+        func optionalE(_ i: Int) -> String {
+            if i == 6 {
+                return "e"
+            } else {
+                return ""
+            }
+        }
         switch self.ranking {
         case .straightFlush:
-            let valString = Rank.getFor(val).fullName
+            let valString = valString
             return "\(valString)-high Straight Flush"
         case .fourOfAKind:
-            let valString = Rank.getFor(val).fullName + "s"
+            let valString = valString + optionalE(val) + "s"
             return "Four of a Kind - \(valString)"
         case .fullHouse:
-            let valString1 = Rank.getFor(val).fullName + "s"
+            let valString1 = valString + optionalE(val) + "s"
             let valString2 = Rank.getFor(values[1]).fullName + "s"
             return "Full House - \(valString1) over \(valString2)"
         case .flush:
-            return "Flush"
+            return "\(valString)-high Flush"
         case .straight:
-            return "Straight"
+            return "\(valString)-high Straight"
         case .threeOfAKind:
-            return "Three of a Kind"
+            return "Three of a Kind - \(valString + optionalE(val))s"
         case .twoPair:
-            return "Two Pair - \(Rank.getFor(val).fullName)s and \(Rank.getFor(values[1]))s"
+            return "Two Pair - \(valString + optionalE(val))s and \(Rank.getFor(values[1]).fullName + optionalE(values[1]))s"
         case .onePair:
-            return "One Pair - \(Rank.getFor(val).fullName)s"
+            return "One Pair - \(valString + optionalE(val))s"
         case .highCard:
-            return "High Card - \(Rank.getFor(val).fullName)"
+            return "High Card - \(valString)"
         case .none:
             return ""
         }
     }
-    var kickerDescription : String {
-        switch self.ranking {
-        case .fullHouse, .threeOfAKind, .onePair, .highCard, .none:
-            return ""
-        case .fourOfAKind, .twoPair:
-            return Rank.getFor(self.rankingValues.last!).fullName + " kicker"
-        case .straightFlush, .flush, .straight:
-            return Rank.getFor(self.rankingValues[0]).fullName + " high"
-        }
+    
+    static func kickerDescription(forValue i: Int) -> String {
+        let valString = Rank.getFor(i).fullName
+        return " - " + valString + " kicker"
     }
     
     var allCards : [Card]

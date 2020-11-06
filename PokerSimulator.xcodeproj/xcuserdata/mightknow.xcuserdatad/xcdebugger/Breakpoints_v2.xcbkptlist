@@ -84,5 +84,85 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC966BFC-65C2-4945-8AA1-C4B34BF94CF5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokerSimulator/ViewModel/TestViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "leadingHandString"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "44D59460-6C40-4669-87EC-21816ACC95EE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokerSimulator/Model/Hand.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "432"
+            endingLineNumber = "432"
+            landmarkName = "findKickerFor(lhs:rhs:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "44D59460-6C40-4669-87EC-21816ACC95EE - cfdb2486cf8ae3f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static PokerSimulator.Hand.findKickerFor(lhs: PokerSimulator.Hand, rhs: PokerSimulator.Hand) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "PokerSimulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mightknow/Documents/OneDrive/Apps/PokerSimulator/PokerSimulator/Model/Hand.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "432"
+                  endingLineNumber = "432"
+                  offsetFromSymbolStart = "123">
+               </Location>
+               <Location
+                  uuid = "44D59460-6C40-4669-87EC-21816ACC95EE - 843723d047614953"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "find #1 () -&gt; () in static PokerSimulator.Hand.findKickerFor(lhs: PokerSimulator.Hand, rhs: PokerSimulator.Hand) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "PokerSimulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mightknow/Documents/OneDrive/Apps/PokerSimulator/PokerSimulator/Model/Hand.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "432"
+                  endingLineNumber = "432"
+                  offsetFromSymbolStart = "71">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "744A3E7C-8A9E-4053-8808-84ACA975732E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokerSimulator/Model/Hand.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "465"
+            endingLineNumber = "465"
+            landmarkName = "findKickerFor(lhs:rhs:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

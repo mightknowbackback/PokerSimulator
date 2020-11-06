@@ -112,13 +112,12 @@ struct GameModel {
         let deck = Deck(shuffleMethods: shuffleMethods)
         var computerPlayers : [Player] = []
         for i in 0..<players {
-            let player = Player(isComputerPlayer: true, playerNumber: i)
+            let player = Player(isComputerPlayer: true, playerNumber: i + 1)
             computerPlayers.append(player)
         }
         self.shuffleMethods = shuffleMethods
         self.deck = deck
         self.players = computerPlayers
         self.distribute(2, toPlayer: true)
-        print(self.players[0].cards)
     }
 }

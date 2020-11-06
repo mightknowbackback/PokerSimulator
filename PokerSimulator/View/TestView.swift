@@ -27,7 +27,7 @@ struct TestView: View {
                     Text(self.viewModel.testViewPlayerStrings[i].cards)
                 }
             }
-            Text(self.viewModel.stateString).padding()
+            Text(self.viewModel.leadingHandString).padding()
             Button(action: self.deal) {
                 Text("Deal").padding()
             }

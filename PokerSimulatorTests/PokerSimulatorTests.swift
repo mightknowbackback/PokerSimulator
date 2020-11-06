@@ -112,6 +112,8 @@ class PokerSimulatorTests: XCTestCase {
         XCTAssertEqual(fourOfAKindC.rankingValues, [3, 14])
         XCTAssertTrue(fourOfAKindA > fourOfAKindB)
         XCTAssertTrue(fourOfAKindB > fourOfAKindC)
+        XCTAssertTrue(Hand.findKickerFor(lhs: fourOfAKindA, rhs: fourOfAKindB) == 6)
+        XCTAssertTrue(Hand.findKickerFor(lhs: fourOfAKindB, rhs: fourOfAKindC) == nil)
         
         // MARK: Full House
         let fullHouseA = Hand([

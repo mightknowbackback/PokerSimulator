@@ -31,12 +31,4 @@ struct Deck {
     }
 }
 
-extension Array where Element == Card {
-    var debugDescription : String {
-        var result : String = "\nCARD COUNT: \(self.count)\n"
-        for c in self {
-            result.append(c.abbreviation + "\n")
-        }
-        return result
-    }
-}
+

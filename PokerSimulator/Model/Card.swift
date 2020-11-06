@@ -89,3 +89,25 @@ struct Card : Equatable {
         self.abbreviation = rank.abbreviation + suit.abbreviation
     }
 }
+extension Array where Element == Card {
+    var debugDescription : String {
+        var result : String = "\nCARD COUNT: \(self.count)\n"
+        for c in self {
+            result.append(c.abbreviation + "\n")
+        }
+        return result
+    }
+    func printList() {
+        var arr : [String] = []
+        var i = 14
+        while i > 1 {
+            for c in self {
+                if c.rank.rawValue == i {
+                    arr.append(c.abbreviation)
+                }
+            }
+            i -= 1
+        }
+        print(arr)
+    }
+}

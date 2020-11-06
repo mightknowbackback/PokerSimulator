@@ -38,31 +38,65 @@ extension ViewModel {
         }
         return result
     }
-    var stateString : String {
+    var leadingHandString : String {
         let top = self.gameModel.currentBest()
         var string = ""
         var numberString : String {
             var s = ""
             for p in top {
-                s += String(p.playerNumber)
-                if p != top.last {
-                    s += ", "
+                if top.count >= 2 {
+                    if p == top.last! {
+                        s += " and "
+                    }
                 }
+                s += String(p.playerNumber)
+                if top.count > 2 {
+                    if p != top.last! {
+                        s += ", "
+                    }
+               }
             }
             return s
+        }
+        var conditionalA : String {
+            var string = ""
+            switch top[0].hand.ranking {
+            case .straightFlush, .fullHouse, .flush, .straight:
+                string = "a "
+            default:
+                break
+            }
+            return string
         }
         switch self.gameModel.round {
         case .river:
             if top.count > 1 {
-                string = "Players \(numberString) tied with a \(top[0].hand.description)"
+                string = "Players \(numberString) tied with \(conditionalA)\(top[0].hand.description)"
             } else {
-                string = "Player \(numberString) wins with a \(top[0].hand.description)"
+                string = "Player \(numberString) wins with \(conditionalA)\(top[0].hand.description)"
             }
         default:
             if top.count > 1 {
-                string = "Players \(numberString) have the current top hand with a \(top[0].hand.description)"
+                string = "Players \(numberString) have the current top hand with \(conditionalA)\(top[0].hand.description)"
             } else {
-                string = "Player \(numberString) has the current top hand with a \(top[0].hand.description)"
+                string = "Player \(numberString) has the current top hand with \(conditionalA)\(top[0].hand.description)"
+            }
+        }
+        var str = ""
+        for p in self.gameModel.players {
+            
+            let tHand = top[0].hand
+            let pHand = p.hand
+            if tHand.ranking == pHand.ranking && !top.contains(p) && str == "" {
+                
+                if let kicker = Hand.findKickerFor(lhs: tHand, rhs: pHand) {
+                    print("Kicker Needed:")
+                    tHand.usedCards.printList()
+                    pHand.usedCards.printList()
+                    print()
+                    str = Hand.kickerDescription(forValue: kicker)
+                    string.append(str)
+                }
             }
         }
         return string
