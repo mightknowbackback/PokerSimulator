@@ -9,9 +9,9 @@ import Foundation
 
 enum Round : String {
     case preFlop = "Pre-Flop"
-    case flop
-    case turn
-    case river
+    case flop = "Flop"
+    case turn = "Turn"
+    case river = "River"
 }
 
 struct GameModel {
