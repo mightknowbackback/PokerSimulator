@@ -10,10 +10,22 @@ import Foundation
 extension ViewModel {
     
     var testViewPlayerStrings : [(player: String, cards: String)] {
-        var result : [(player: String, cards: String)] = []
-        for p in self.gameModel.players {
+        var result : [(player: String, cards: String)] = [(player: "PLAYER\n", cards: "CARDS\n")]
+        let playersSorted : [Player] = {
+            var result : [Player] = []
+            for i in 1...self.gameModel.players.count {
+                for p in self.gameModel.players {
+                    if p.playerNumber == i {
+                        result.append(p)
+                    }
+                }
+            }
+            return result
+        }()
+        
+        for p in playersSorted {
             // Player number String
-            let playerString : String = p.isComputerPlayer ? "Bot \(p.playerNumber):" : "Player:"
+            let playerString : String = p.isComputerPlayer ? "Bot \(p.playerNumber - 1):" : "Player \(p.playerNumber):"
             // Hand String
             let cards : String = {
                 var result = ""
