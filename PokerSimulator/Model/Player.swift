@@ -38,6 +38,7 @@ class Player : Equatable {
     
     // MARK: Player Action
     var action : Action?
+    var actionAmount : Int = 0
     // Main function for computer player check/fold/call/raise
     func decide(for gameModel: GameModel) -> (action: Action, amount: Int?) {
         return (.check, nil)

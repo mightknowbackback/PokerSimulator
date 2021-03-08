@@ -9,8 +9,8 @@ import Foundation
 
 extension ViewModel {
     
-    var testViewPlayerStrings : [(player: String, cards: String)] {
-        var result : [(player: String, cards: String)] = [(player: "PLAYER\n", cards: "CARDS\n")]
+    var testViewPlayerStrings : [(player: String, cards: String, action: String)] {
+        var result : [(player: String, cards: String, action: String)] = [(player: "PLAYER\n", cards: "CARDS\n", action: "ACTION")]
         let playersSorted : [Player] = {
             var result : [Player] = []
             for i in 1...self.gameModel.players.count {
@@ -44,7 +44,12 @@ extension ViewModel {
                 }
                 return result
             }()
-            result.append((player: playerString, cards: cards))
+            var action : String = p.action == nil ? "" : p.action!.rawValue
+            if p.action == .call || p.action == .raise {
+                action.append(" ")
+                action.append(String(p.actionAmount))
+            }
+            result.append((player: playerString, cards: cards, action: action))
         }
         return result
     }

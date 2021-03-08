@@ -18,15 +18,25 @@ struct TestView: View {
     }
     func check() {
         print("CHECK")
+        self.viewModel.gameModel.hero.action = .check
+        self.viewModel.gameModel.currentBet += 0
     }
     func fold() {
         print("FOLD")
+        self.viewModel.gameModel.hero.action = .fold
+        self.viewModel.gameModel.currentBet += 0
     }
     func call() {
         print("CALL")
+        self.viewModel.gameModel.hero.action = .call
+        self.viewModel.gameModel.hero.actionAmount = self.viewModel.gameModel.currentBet
+        self.viewModel.gameModel.currentBet += 0
     }
     func bet() {
         print("BET $\(Int(self.betAmount))")
+        self.viewModel.gameModel.hero.action = .raise
+        self.viewModel.gameModel.hero.actionAmount = Int(self.betAmount)
+        self.viewModel.gameModel.currentBet += Int(self.betAmount)
     }
     
     var body: some View {
@@ -39,6 +49,7 @@ struct TestView: View {
                 HStack {
                     Text(self.viewModel.testViewPlayerStrings[i].player).frame(maxWidth: .infinity)
                     Text(self.viewModel.testViewPlayerStrings[i].cards).frame(maxWidth: .infinity)
+                    Text(self.viewModel.testViewPlayerStrings[i].action).frame(maxWidth: .infinity)
                 }
             }
             HStack {

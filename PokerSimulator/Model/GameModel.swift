@@ -45,6 +45,7 @@ struct GameModel {
                 let p : Player = self.players[self.activePlayer]
                 if p.isComputerPlayer && p.isActive {
                     let decision = p.decide(for: self)
+                    p.action = decision.action
                     switch decision.action {
                     case .check:
                         // no action
@@ -59,6 +60,7 @@ struct GameModel {
                         let callingAmount : Int = decision.amount!
                         // remove calling chips from player and add them to pot. adjust player stake.
                         p.chips -= callingAmount
+                        p.actionAmount = callingAmount
                         self.pot += callingAmount
                         p.stake += callingAmount
                     case .raise:
@@ -240,6 +242,8 @@ struct GameModel {
     var activePlayer : Int = 0
     // Current bet amount for round
     var currentBet : Int = 0
+    // User player
+    var hero : Player
     // Pot value
     var pot : Int = 0
     // Rake taken by house
@@ -259,6 +263,7 @@ struct GameModel {
         self.shuffleMethods = shuffleMethods
         self.deck = deck
         self.players = players
+        self.hero = player
         self.distribute(numberOfCards: 2, asHoleCards: true)
     }
 }
