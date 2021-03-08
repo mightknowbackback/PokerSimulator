@@ -20,23 +20,27 @@ struct TestView: View {
         print("CHECK")
         self.viewModel.gameModel.hero.action = .check
         self.viewModel.gameModel.currentBet += 0
+        self.viewModel.gameModel.continuePlay()
     }
     func fold() {
         print("FOLD")
         self.viewModel.gameModel.hero.action = .fold
         self.viewModel.gameModel.currentBet += 0
+        self.viewModel.gameModel.continuePlay()
     }
     func call() {
         print("CALL")
         self.viewModel.gameModel.hero.action = .call
         self.viewModel.gameModel.hero.actionAmount = self.viewModel.gameModel.currentBet
         self.viewModel.gameModel.currentBet += 0
+        self.viewModel.gameModel.continuePlay()
     }
     func bet() {
         print("BET $\(Int(self.betAmount))")
         self.viewModel.gameModel.hero.action = .raise
         self.viewModel.gameModel.hero.actionAmount = Int(self.betAmount)
         self.viewModel.gameModel.currentBet += Int(self.betAmount)
+        self.viewModel.gameModel.continuePlay()
     }
     
     var body: some View {

@@ -41,7 +41,20 @@ class Player : Equatable {
     var actionAmount : Int = 0
     // Main function for computer player check/fold/call/raise
     func decide(for gameModel: GameModel) -> (action: Action, amount: Int?) {
-        return (.check, nil)
+        // Initialize variable for result
+        var result : (action: Action, amount: Int?) = (action: .check, amount: nil)
+        // Check if player cannot check:
+        let amount = gameModel.currentBet
+        if amount != self.stake {
+            result = (action: .call, amount: amount - self.stake)
+        }
+        return result
+    }
+    // Reset player for next hand
+    func reset() {
+        self.action = nil
+        self.actionAmount = 0
+        self.isActive = true
     }
     
     // MARK: Initializer

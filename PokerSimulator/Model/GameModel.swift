@@ -18,11 +18,32 @@ struct GameModel {
     
     // MARK: Main Game Loop
     mutating func continuePlay() {
-        
-        // track if betting is ongoing
-        var bettingIsDone : Bool = false
-        // distribute cards one at a time
-        
+        // reset for next round
+        func resetForNextBettingRound() {
+            self.advanceButton()
+            self.currentBet = 0
+            self.didDealCards = false
+            self.bettingIsOver = false
+            self.handIsOver = false
+            nextRound()
+        }
+        // advance round variable
+        func nextRound() {
+            if self.handIsOver {// skip remaining rounds and reset
+                self.round = .preFlop
+            } else { // continue to next round
+                switch self.round {
+                case .preFlop:
+                    self.round = .flop
+                case .flop:
+                    self.round = .turn
+                case .turn:
+                    self.round = .river
+                case .river:
+                    self.round = .preFlop
+                }
+            }
+        }
         // deal round (burn card and distribute)
         func deal() {
             // burn card
@@ -78,22 +99,40 @@ struct GameModel {
                     }
                 }
             }
+            // check if betting is done and update if so
+            var bettingIsContinuing = false
+            for p in self.players {
+                
+                if p.isActive && p.stake != self.currentBet {
+                    bettingIsContinuing = true
+                }
+            }
+            if !bettingIsContinuing {
+                self.bettingIsOver = true
+            }
         }
-        // Deal cards
-        
-        //deal()
+        // Deal cards if hasn't been done
+        if !self.didDealCards {
+            deal()
+        }
         // Betting Round
         runBettingLoop()
-        // reset current bet
-        self.currentBet = 0
         // See if had is over or continues to next round
         if handIsOver { // If hand is over
             // distribute pot
+            self.distributePot(toWinners: self.getWinners())
             // reset deck
             // advance button
             // reset all player statuses
+            // deal new hand
+            resetForNextBettingRound()
+            self.resetDeck()
         } else { // If hand is not over
-            // Advance to next round
+            if self.bettingIsOver { // betting is over for round
+                resetForNextBettingRound()
+            }
+            
+            
         }
     }
     
@@ -231,6 +270,7 @@ struct GameModel {
     // Discard pile (burn cards and folded player hole cards)
     private var discardPile : [Card] = []
     // Board cards
+    private var didDealCards : Bool = true
     var board : [Card] = []
     // Deck of undealt cards
     private var deck : Deck
@@ -250,6 +290,7 @@ struct GameModel {
     var rake : Int = 0
     // there is a winner(s)
     var handIsOver : Bool = false
+    var bettingIsOver : Bool = false
     
     
     init(shuffleMethods: ShuffleMethod..., numberOfPlayers: Int, startingChips: Int) {
