@@ -365,6 +365,7 @@ enum HandRanking : Int, CaseIterable {
     }
     
 }
+
 struct Hand : Equatable, Comparable {
     
     static func == (lhs: Hand, rhs: Hand) -> Bool {

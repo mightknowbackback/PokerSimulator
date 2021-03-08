@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum ShuffleMethod {
+enum ShuffleMethod { // enum for differing methods of card shuffling. contains shuffle method that takes a deck and returns a shuffled deck.
+    
     case scramble, riffle, machine, random
     func shuffle(_ cards : [Card]) -> [Card] {
         

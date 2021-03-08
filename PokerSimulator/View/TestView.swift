@@ -12,7 +12,7 @@ struct TestView: View {
     @EnvironmentObject var viewModel : ViewModel
     
     func deal() {
-        self.viewModel.gameModel.deal()
+        self.viewModel.gameModel.continuePlay()
     }
     
     var body: some View {
@@ -27,7 +27,7 @@ struct TestView: View {
                     Text(self.viewModel.testViewPlayerStrings[i].cards)
                 }
             }
-            Text(self.viewModel.leadingHandString).padding()
+            Text(self.viewModel.gameStateString).padding()
             Button(action: self.deal) {
                 Text("Deal").padding()
             }

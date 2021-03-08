@@ -7,9 +7,11 @@
 
 import Foundation
 
-enum Action : String, CaseIterable {
+enum Action : String, CaseIterable { // enum for avalailable actions on player turn
+    
     case check = "Check"
     case fold = "Fold"
     case call = "Call"
     case raise = "Raise"
+    
 }

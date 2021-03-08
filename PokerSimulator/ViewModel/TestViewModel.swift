@@ -8,20 +8,31 @@
 import Foundation
 
 extension ViewModel {
+    
     var testViewPlayerStrings : [(player: String, cards: String)] {
         var result : [(player: String, cards: String)] = []
         for p in self.gameModel.players {
-            let player = "Player \(p.playerNumber):"
+            // Player number String
+            let playerString : String = p.isComputerPlayer ? "Bot \(p.playerNumber):" : "Player:"
+            // Hand String
             let cards : String = {
                 var result = ""
-                if p.cards.count != 0 {
-                    let c1 = p.cards[0].abbreviation
-                    let c2 = p.cards[1].abbreviation
-                    result = c1 + " " + c2
+                // if player has active cards
+                if p.isActive {
+                    if p.isComputerPlayer && !self.gameModel.handIsOver { // computer player and isn't showing winning hand
+                        result = "* *"
+                    } else {
+                        let c1 = p.cards[0].abbreviation
+                        let c2 = p.cards[1].abbreviation
+                        result = c1 + " " + c2
+                    }
+                    
+                } else { // inactive hand string
+                    result = "- -"
                 }
                 return result
             }()
-            result.append((player: player, cards: cards))
+            result.append((player: playerString, cards: cards))
         }
         return result
     }
@@ -38,8 +49,8 @@ extension ViewModel {
         }
         return result
     }
-    var leadingHandString : String {
-        let top = self.gameModel.currentBest()
+    var gameStateString : String {
+        let top = self.gameModel.getWinners()
         var string = ""
         var numberString : String {
             var s = ""
